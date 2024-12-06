@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-profile-service
+spec:
+  selector:
+    matchLabels:
+      app: user-profile-service
+  template:
+    metadata:
+      labels:
+        app: user-profile-service
+    spec:
+      containers:
+      - name: user-profile-server-user-profile
+        image: user-profile-server-user-profile:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-profile-service
+spec:
+  selector:
+    app: user-profile-service
+  ports:
+  - port: 3005
+    targetPort: 3005
